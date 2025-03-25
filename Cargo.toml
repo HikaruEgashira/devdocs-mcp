@@ -1,0 +1,53 @@
+[package]
+name = "devdocs-mcp"
+version = "0.1.0"
+edition = "2021"
+description = "Documentation MCP Server for LLM"
+authors = ["Claude <noreply@anthropic.com>"]
+license = "MIT"
+repository = "https://github.com/HikaruEgashira/devdocs-mcp"
+
+[workspace]
+members = [
+    ".",
+]
+
+[dependencies]
+# MCP dependencies from GitHub
+mcp-server = { git = "https://github.com/modelcontextprotocol/rust-sdk", rev = "31493cfbcc42b044b18a664f3facbf8924703354", package = "mcp-server" }
+mcp-core = { git = "https://github.com/modelcontextprotocol/rust-sdk", rev = "31493cfbcc42b044b18a664f3facbf8924703354", package = "mcp-core" }
+mcp-macros = { git = "https://github.com/modelcontextprotocol/rust-sdk", rev = "31493cfbcc42b044b18a664f3facbf8924703354", package = "mcp-macros" }
+
+# HTTP and networking
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.11", features = ["json"] }
+axum = { version = "0.8", features = ["macros"] }
+tokio-util = { version = "0.7", features = ["io", "codec"]}
+tower = { version = "0.4", features = ["util"] }
+tower-service = "0.3"
+hyper = "0.14"
+
+# Serialization and data formats
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+
+# Utilities
+anyhow = "1.0"
+futures = "0.3"
+rand = "0.8"
+clap = { version = "4.4", features = ["derive"] }
+html2md = "0.2.14"
+
+[dev-dependencies]
+# Testing utilities
+mockito = "1.2"
+
+# Main binary with subcommands
+[[bin]]
+name = "devdocs"
+path = "src/bin/devdocs.rs"
